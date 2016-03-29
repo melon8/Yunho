@@ -9,6 +9,8 @@
 import XCTest
 @testable import Yunho
 
+let TIMEOUT = 10.0
+
 class YunhoTests: XCTestCase {
     
     override func setUp() {
@@ -30,14 +32,13 @@ class YunhoTests: XCTestCase {
         }) { (error) -> () in
             XCTAssertNil(error)
         }
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectationsWithTimeout(TIMEOUT, handler: nil)
     }
     
     func testPOST() {
         let expectation = self.expectationWithDescription("request should finish")
 
-        Yunho.request(.POST, url: "https://httpbin.org/post1", params: ["param": "param"], success: { (response) -> () in
-            debugPrint(response)
+        Yunho.request(.POST, url: "https://httpbin.org/post", params: ["param": "param"], success: { (response) -> () in
             XCTAssertTrue(response.code == 200, "code is not 200")
             XCTAssertEqual(response.url.absoluteString, "https://httpbin.org/post", "url incorrect")
             XCTAssertTrue(response.string.containsString("{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"param\": \"param\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Accept-Language\": \"en-us\", \n    \"Content-Length\": \"11\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"xctest (unknown version) CFNetwork/758.3.15 Darwin/15.3.0\"\n  }, \n  \"json\": null"), "repsonse text incorrect")
@@ -45,7 +46,7 @@ class YunhoTests: XCTestCase {
         }) { (error) -> () in
             XCTAssertNil(error)
         }
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectationsWithTimeout(TIMEOUT, handler: nil)
     }
     
 //    func testRequest() {
