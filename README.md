@@ -1,4 +1,5 @@
-# Yunho
+# Yunho [![Build Status](https://travis-ci.org/melon8/Yunho.svg?branch=master)](https://travis-ci.org/melon8/Yunho)
+
 a network library written in Swift, for study
 
 ## Example
